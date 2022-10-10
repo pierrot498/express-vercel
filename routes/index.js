@@ -68,7 +68,7 @@ r.get('/:id', async (req, res) =>{
   "value": isStaked+""
 })
  if(isStaked){
-response.image="ipfs://Qme95rawJN1JSuARFd73iq7CKi67cDyUBS8YPAN4YfXfeF"
+response.image="ipfs://QmYjz3Dy8kJtbygHdmRiDdnShEJ2jT5ggJYMabUX1fi8uk"
 delete response.animation_url}
 res.json(response )
                          }
