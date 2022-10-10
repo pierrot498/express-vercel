@@ -65,7 +65,7 @@ r.get('/:id', async (req, res) =>{
  let isStaked=await contract.methods.isStaked("1").call()
  response.attributes.push({
   "trait_type": "isStaked",
-  "value": isStaked
+  "value": isStaked+""
 })
 res.json(response )
                          }
