@@ -62,7 +62,7 @@ r.get('/:id', async (req, res) =>{
     "name": "Oxya Land"
 }
  var contract = new Contract(abi, "0x4a14359708829ff39e5e9c739f9f63aec43e2de4");
- let isStaked=await contract.methods.isStaked("1").call()
+ let isStaked=await contract.methods.isStaked(req.params.id).call()
  response.attributes.push({
   "trait_type": "isStaked",
   "value": isStaked+""
