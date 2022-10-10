@@ -67,8 +67,9 @@ r.get('/:id', async (req, res) =>{
   "trait_type": "isStaked",
   "value": isStaked+""
 })
- if(isStaked)
+ if(isStaked){
 response.image="ipfs://Qme95rawJN1JSuARFd73iq7CKi67cDyUBS8YPAN4YfXfeF"
+delete response.animation_url}
 res.json(response )
                          }
 
