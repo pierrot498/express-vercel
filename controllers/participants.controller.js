@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const { ethers } = require("ethers");
 const Dboe = db.participants;
 const Op = db.Sequelize.Op;
-const  abi  = require("../../assets/abi.json");
+const  abi  = require("../assets/abi.json");
 require('dotenv').config();
 const {
   PRIVATE_KEY_SIG,
