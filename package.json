@@ -4,7 +4,7 @@
   "description": "express vercel boilerplate",
   "main": "app.js",
   "scripts": {
-    "start": "vercel dev",
+    "start": "npm install pg --save && vercel dev",
     "test": "jest -i"
   },
   "dependencies": {
