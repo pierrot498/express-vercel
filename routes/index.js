@@ -9,70 +9,38 @@ var contract = new Contract(abi, "0x4a14359708829ff39e5e9c739f9f63aec43e2de4");
 
 const demo = require('./demo.route');
 
-const r = Router();
+const app = Router();
+const express = require("express");
+const cors = require("cors");
 
-r.use('/demo', demo);
+var corsOptions = {
+  origin: "http://localhost:8081"
+};
 
-r.get('/:id', async (req, res) =>{ 
- var response={
-    "image": "ipfs://QmRjFPh9yGvSB6K2RKwVVpCq3T6vn9WYnuCQZE8jBptiEK",
-    "animation_url":"ipfs://QmRjFPh9yGvSB6K2RKwVVpCq3T6vn9WYnuCQZE8jBptiEK",
-    "attributes": [
-        {
-            "trait_type": "Planet",
-            "value": "Undisclosed"
-        },
-        {
-            "trait_type": "Environment",
-            "value": "Undisclosed"
-        },
-        {
-            "trait_type": "1st Floor",
-            "value": "Undisclosed"
-        },
-        {
-            "trait_type": "2nd Floor",
-            "value": "Undisclosed"
-        },
-        {
-            "trait_type": "Crystals",
-            "value": "Undisclosed"
-        },
-        {
-            "trait_type": "HQ type",
-            "value": "Undisclosed"
-        },
-        {
-            "trait_type": "HQ level",
-            "value": "Undisclosed"
-        },
-        {
-            "trait_type": "Artifact",
-            "value": "Undisclosed"
-        },
-        {
-            "trait_type": "X coordinates",
-            "value": "Undisclosed"
-        },
-        {
-            "trait_type": "Y coordinates",
-            "value": "Undisclosed"
-        }
-    ],
-    "name": "Oxya Land"
-}
- var contract = new Contract(abi, "0x4a14359708829ff39e5e9c739f9f63aec43e2de4");
- let isStaked=await contract.methods.isStaked(req.params.id).call()
- response.attributes.push({
-  "trait_type": "isStaked",
-  "value": isStaked+""
-})
- if(isStaked){
-response.image="ipfs://QmYjz3Dy8kJtbygHdmRiDdnShEJ2jT5ggJYMabUX1fi8uk"
-delete response.animation_url}
-res.json(response )
-                         }
+app.use(cors(corsOptions));
 
-);
+// parse requests of content-type - application/json
+app.use(express.json());
 
-module.exports = r;
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+
+const db = require("./app/models");
+db.sequelize.sync()
+  .then(() => {
+    console.log("Synced db.");
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+  });
+
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Server online" });
+});
+
+require("./participants.routes")(app);
+
+
+module.exports = app;
