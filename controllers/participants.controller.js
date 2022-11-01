@@ -181,7 +181,7 @@ exports.claim = (req, res) => {
     const provider = new ethers.providers.JsonRpcProvider(GOERLI_NODE);
     const Contract = new ethers.Contract(CONTRACT, abi, provider);
 
-    Contract.betPrice().then(pricePool=> {
+    Contract.pricePool().then(pricePool=> {
       const ratio =  (user.points / e[0].total_points)
       const ammountW = Math.round(Number(pricePool.toString()) * ratio)
       const signer = new ethers.Wallet(PRIVATE_KEY_SIG);
@@ -272,7 +272,7 @@ async function getEvents() {
   const provider = new ethers.providers.JsonRpcProvider(GOERLI_NODE);
   const Contract = new ethers.Contract(CONTRACT, abi, provider);
   const filterFrom = Contract.filters.Bet();
-
+  
   var addressBet = [];
   var dataSort = [];
 
